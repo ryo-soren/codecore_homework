@@ -5,6 +5,7 @@ function topBorder(length) {
     console.log(output);
 
     }
+
 function bottomBorder(length) {
 
     const line  = "\U+2501".repeat(length)
@@ -19,4 +20,18 @@ function middleBorder(length) {
     const output = "\U+2523" + line + "\U+252B"
     console.log(output);
 
+    }
+
+function boxIt(text) {
+
+    const textArray = text.slice(2)
+    const length = Math.max(...textArray.map((x) => x.length()))
+    const output = ''
+
+    for (const element of textArray) {
+
+        output = topBorder(length) + "\n" + element + "\n" + bottomBorder(length)
+            
+        }
+        
     }
