@@ -1,9 +1,22 @@
 function topBorder(length) {
 
-    const line  = "\U+250".repeat(length)
-    const output = "\U+250C" + line + "\U+2510"
+    const line  = "\U+2501".repeat(length)
+    const output = "\U+250F" + line + "\U+2513"
     console.log(output);
 
     }
-    
-topBorder(5)
+function bottomBorder(length) {
+
+    const line  = "\U+2501".repeat(length)
+    const output = "\U+2517" + line + "\U+251B"
+    console.log(output);
+
+    }
+
+function middleBorder(length) {
+
+    const line  = "\U+2501".repeat(length)
+    const output = "\U+2523" + line + "\U+252B"
+    console.log(output);
+
+    }
