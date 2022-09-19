@@ -46,5 +46,5 @@ function boxIt(text) {
 
 }
 
-console.log(boxIt(["itemToSlice1", "itemToSlice2", "test1", "test2.0", "test 3"]))
+console.log(boxIt(process.argv))
 
