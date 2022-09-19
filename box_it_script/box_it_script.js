@@ -1,37 +1,40 @@
-function topBorder(length) {
+function topBorder(topWidth) {
 
-    const line  = "\U+2501".repeat(length)
-    const output = "\U+250F" + line + "\U+2513"
-    console.log(output);
-
-    }
-
-function bottomBorder(length) {
-
-    const line  = "\U+2501".repeat(length)
-    const output = "\U+2517" + line + "\U+251B"
-    console.log(output);
+    const line  = "\u2501".repeat(topWidth)
+    const output = "\u250F" + line + "\u2513"
+    return output;
 
     }
 
-function middleBorder(length) {
+function bottomBorder(bottomWidth) {
 
-    const line  = "\U+2501".repeat(length)
-    const output = "\U+2523" + line + "\U+252B"
-    console.log(output);
+    const line  = "\u2501".repeat(bottomWidth)
+    const output = "\u2517" + line + "\u251B"
+    return output;
+
+    }
+
+function middleBorder(width) {
+
+    const line  = "\u2501".repeat(width)
+    const output = "\u2523" + line + "\u252B"
+    return output;
 
     }
 
 function boxIt(text) {
 
     const textArray = text.slice(2)
-    const length = Math.max(...textArray.map((x) => x.length()))
-    const output = ''
+    const length = Math.max(...textArray.map((x) => x.length))
+    let output = ''
 
-    for (const element of textArray) {
 
-        output = topBorder(length) + "\n" + element + "\n" + bottomBorder(length)
-            
-        }
-        
+
+        for (const element of textArray) {
+            output = topBorder(length) + "\n" + element + "\n" + bottomBorder(length)
+            console.log(output);
     }
+}
+
+boxIt(["itemToSlice1", "itemToSlice2", "test1", "test2.0"])
+
