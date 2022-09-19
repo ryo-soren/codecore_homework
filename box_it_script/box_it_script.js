@@ -24,17 +24,27 @@ function middleBorder(width) {
 
 function boxIt(text) {
 
-    const textArray = text.slice(2)
-    const length = Math.max(...textArray.map((x) => x.length))
-    let output = ''
+    const side = "\u2503"
 
+    const outputArray = text.slice(2)
+    const length = Math.max(...outputArray.map((x) => x.length))
+    let output = topBorder(length) + "\n"
+    let i = 1
 
+        for (const element of outputArray) {
+            output += side + element + side + "\n"
 
-        for (const element of textArray) {
-            output = topBorder(length) + "\n" + element + "\n" + bottomBorder(length)
-            console.log(output);
+            if (i < outputArray.length) {
+                
+                output += middleBorder(length) + "\n"
+            }
+            i++
     }
+
+    output += bottomBorder(length) 
+    return output;
+
 }
 
-boxIt(["itemToSlice1", "itemToSlice2", "test1", "test2.0"])
+console.log(boxIt(["itemToSlice1", "itemToSlice2", "test1", "test2.0", "test 3"]))
 
