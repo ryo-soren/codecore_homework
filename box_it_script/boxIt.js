@@ -32,19 +32,41 @@ function boxIt(text) {
     let i = 1
 
         for (const element of outputArray) {
-            output += side + element + side + "\n"
+            
+            let elementLength = element.length
 
             if (i < outputArray.length) {
                 
-                output += middleBorder(length) + "\n"
-            }
-            i++
-    }
+                if (elementLength < length) {
+                    
+                    output += side + element
 
+                    while(elementLength < length) {
+
+                        output += " "
+                        elementLength++
+
+                    }
+
+                    output += side + "\n" + middleBorder(length) + "\n"
+
+                } else{
+
+                    output += side + element + side + "\n"
+
+                }
+            } else{
+
+                output += side + element + side + "\n"
+            }                            
+        }
+            
     output += bottomBorder(length) 
     return output;
 
-}
+    }
+
+
 
 console.log(boxIt(process.argv))
 
