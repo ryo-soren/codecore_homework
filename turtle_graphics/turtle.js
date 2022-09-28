@@ -10,142 +10,130 @@ class Turtle{
 
     forward(increase) {
 
-        const lastVal = this.arrayOfPOS[this.arrayOfPOS.length-1][0]
+        const lastValX = this.arrayOfPOS[this.arrayOfPOS.length-1][0]
+        const lastValY = this.arrayOfPOS[this.arrayOfPOS.length-1][1]
+        
+
         switch (this.direction) {
 
             case "right":
                 
                 if (this.arrayOfPOS[0] === this.arrayOfPOS[this.arrayOfPOS.length-1]) {
-                    
                     for (let i = 1; i <= increase; i++) {
-                        
-                        this.arrayOfPOS.push([i+this.x, this.y])
-                        
+                        this.arrayOfPOS.push([this.x + i, this.y])
                     }
                 } else {
-
                     for (let i = 1; i <= increase; i++) {
-                        
-                        this.arrayOfPOS.push([i + lastVal, this.y])
-                        
-                    }
-                    
-                }
-                
-                if (this.y == 0 && this.x !== 0){
-                    
-                    this.position = "-".repeat(this.x)
-                    
-                }else if (this.y !== 0 || this.x !== 0) {
-                    for (let moveY = 0; moveY < this.y; moveY++) {
-                        this.position += "\n"
-                        for (let moveX = 1; moveX < this.x; moveX++) {
-                            this.position += "-".repeat(this.x-1)
-                        }
-                    }
-                }
-                
-                
-                if (increase <= 0) {
-                    this.forwardOutput = this.position + ".".repeat(0) + "*"
-                } else {
-                    this.forwardOutput = this.position + ".".repeat(increase - 1) + "*"      
+                        this.arrayOfPOS.push([lastValX + i, lastValY])   
+                    }   
                 }
                 return this;
 
             case "down":
-
                 if (this.arrayOfPOS[0] === this.arrayOfPOS[this.arrayOfPOS.length-1]) {
-                    
                     for (let i = 1; i <= increase; i++) {
-                        
-                        this.arrayOfPOS.push([i+this.x, this.y])
-                        
+                        this.arrayOfPOS.push([this.x, this.y + i])
                     }
                 } else {
-
                     for (let i = 1; i <= increase; i++) {
-                        
-                        this.arrayOfPOS.push([i + lastVal, this.y])
-                        
-                    }
-                    
+                        this.arrayOfPOS.push([lastValX, lastValY + i])   
+                    }   
                 }
+                return this;
                 
-                if (this.y == 0 && this.x !== 0){
-                    
-                    this.position = "-".repeat(this.x)
-                    
-                }else if (this.y !== 0 || this.x !== 0) {
-                    for (let moveY = 0; moveY < this.y; moveY++) {
-                        this.position += "\n"
-                        for (let moveX = 1; moveX < this.x; moveX++) {
-                            this.position += "-".repeat(this.x-1)
-                        }
+            case "left":
+                if (this.arrayOfPOS[0] === this.arrayOfPOS[this.arrayOfPOS.length-1]) {
+                    for (let i = 1; i <= increase; i++) {
+                        this.arrayOfPOS.push([this.x - i, this.y])
                     }
-                }
-                
-                
-                if (increase <= 0) {
-                    this.forwardOutput = this.position + ".".repeat(0) + "*"
                 } else {
-                    this.forwardOutput = this.position + ".".repeat(increase - 1) + "*"       
+                    for (let i = 1; i <= increase; i++) {
+                        this.arrayOfPOS.push([lastValX - i, lastValY])   
+                    }   
+                }
+                return this;
+                
+            case "up":
+                if (this.arrayOfPOS[0] === this.arrayOfPOS[this.arrayOfPOS.length-1]) {
+                    for (let i = 1; i <= increase; i++) {
+                        this.arrayOfPOS.push([this.x, this.y - i])
+                    }
+                } else {
+                    for (let i = 1; i <= increase; i++) {
+                        this.arrayOfPOS.push([lastValX, lastValY - i])   
+                    }   
                 }
                 return this;
                 
             default:
                 break;
         }
-
-
     }
 
     right(){
+
         if (this.direction === "right") {
-            this.direction === "down"
+            this.direction = "down"
             return this;
         } else if (this.direction === "left"){
-            this.direction === "up"
+            this.direction = "up"
             return this;
         }else if(this.direction === "down"){
-            this.direction === "left"
+            this.direction = "left"
             return this;
         }else if(this.direction === "up"){
-            this.direction === "right"
+            this.direction = "right"
             return this;
         }
-
     }
 
     left(){
 
+        if (this.direction === "right") {
+            this.direction = "up"
+            return this;
+        } else if (this.direction === "left"){
+            this.direction = "down"
+            return this;
+        }else if(this.direction === "down"){
+            this.direction = "right"
+            return this;
+        }else if(this.direction === "up"){
+            this.direction = "left"
+            return this;
+        }
     }
 
     allPoints(){
-
         return this.arrayOfPOS;
-
     }
 
     print(){
 
-        const arrayOfRows = this.forwardOutput.split("\n")
-        // this.grid = []
+        let xArray = [];
+        let yArray = [];
+        
+        this.arrayOfPOS.forEach(element => {
+            xArray.push(element[0]);
+        });
+        
+        this.arrayOfPOS.forEach(element => {
+            yArray.push(element[1]);
+        });
+        
+        const maxWidth = Math.max(...xArray);
+        const maxHeight = Math.max(...yArray);
 
-        // for (const row of arrayOfRows) {
-        //     grid.push(row.reverse())
-        // }
 
-        console.log(arrayOfRows)//this.grid);
     }
-
 }
 
-t1 = new Turtle(3,0).forward(10)
+// t1 = new Turtle(3,0).forward(10)
 // console.log(t1)
 
 t2 = new Turtle(0,2)
-console.log(t2.forward(5).right().forward(2).allPoints())
+console.log(t2.forward(5))
+console.log(t2.right().forward(2).left().forward(5).left().forward(2).print()); 
 
 
-console.log(t2.forward(2).allPoints())
+// console.log(t2.forward(2).allPoints())
