@@ -1,178 +1,52 @@
-class Turtle{
+const Turtle = require("./turtle_class");
 
-    constructor(x, y){
-        this.x = x
-        this.y = y
-        this.arrayOfPOS = [[x, y]]
-        this.direction = "right"
+const test = process.argv[2]
+const splitToString = test.split('-');
+const firstElement = splitToString[0].split('')
 
-    }
+let newTurtle = new Turtle(parseInt(firstElement[1]), parseInt(firstElement[3]))
 
-    forward(increase) {
-
-        const lastValX = this.arrayOfPOS[this.arrayOfPOS.length-1][0]
-        const lastValY = this.arrayOfPOS[this.arrayOfPOS.length-1][1]
-        
-
-        switch (this.direction) {
-
-            case "right":
+if (firstElement[0] === "t") {   
+    for (const element of splitToString) {
+        switch (element[0]) {
+            case "f":
+                const arrOfStr = element.split(element[0])
+                newTurtle.forward(parseInt(arrOfStr[1]));
+                break;
                 
-                if (this.arrayOfPOS[0] === this.arrayOfPOS[this.arrayOfPOS.length-1]) {
-                    for (let i = 1; i <= increase; i++) {
-                        this.arrayOfPOS.push([this.x + i, this.y])
-                    }
-                } else {
-                    for (let i = 1; i <= increase; i++) {
-                        this.arrayOfPOS.push([lastValX + i, lastValY])   
-                    }   
-                }
-                return this;
-
-            case "down":
-                if (this.arrayOfPOS[0] === this.arrayOfPOS[this.arrayOfPOS.length-1]) {
-                    for (let i = 1; i <= increase; i++) {
-                        this.arrayOfPOS.push([this.x, this.y + i])
-                    }
-                } else {
-                    for (let i = 1; i <= increase; i++) {
-                        this.arrayOfPOS.push([lastValX, lastValY + i])   
-                    }   
-                }
-                return this;
-                
-            case "left":
-                if (this.arrayOfPOS[0] === this.arrayOfPOS[this.arrayOfPOS.length-1]) {
-                    for (let i = 1; i <= increase; i++) {
-                        this.arrayOfPOS.push([this.x - i, this.y])
-                    }
-                } else {
-                    for (let i = 1; i <= increase; i++) {
-                        this.arrayOfPOS.push([lastValX - i, lastValY])   
-                    }   
-                }
-                return this;
-                
-            case "up":
-                if (this.arrayOfPOS[0] === this.arrayOfPOS[this.arrayOfPOS.length-1]) {
-                    for (let i = 1; i <= increase; i++) {
-                        this.arrayOfPOS.push([this.x, this.y - i])
-                    }
-                } else {
-                    for (let i = 1; i <= increase; i++) {
-                        this.arrayOfPOS.push([lastValX, lastValY - i])   
-                    }   
-                }
-                return this;
-                
+            case "r":
+                newTurtle.right();
+                break;
+                    
+            case "l":
+                newTurtle.left();
+                break
+            
             default:
                 break;
         }
     }
+}else{
+    newTurtle = new Turtle(0,0)
+    for (const element of splitToString) {
+        switch (element[0]) {
+            case "f":
+                const arrOfStr = element.split(element[0])
+                newTurtle.forward(parseInt(arrOfStr[1]));
+                break;
 
-    right(){
+            case "r":
+                newTurtle.right();
+                break;
 
-        if (this.direction === "right") {
-            this.direction = "down"
-            return this;
-        } else if (this.direction === "left"){
-            this.direction = "up"
-            return this;
-        }else if(this.direction === "down"){
-            this.direction = "left"
-            return this;
-        }else if(this.direction === "up"){
-            this.direction = "right"
-            return this;
+            case "l":
+                newTurtle.left();
+                break
+        
+            default:
+                break;
         }
-    }
-
-    left(){
-
-        if (this.direction === "right") {
-            this.direction = "up"
-            return this;
-        } else if (this.direction === "left"){
-            this.direction = "down"
-            return this;
-        }else if(this.direction === "down"){
-            this.direction = "right"
-            return this;
-        }else if(this.direction === "up"){
-            this.direction = "left"
-            return this;
-        }
-    }
-
-    allPoints(){
-        return this.arrayOfPOS;
-    }
-
-    print(){
-
-        let xArray = [];
-        let yArray = [];
-        let position = ""
-
-        this.arrayOfPOS.forEach(element => {
-            xArray.push(element[0]);
-        });
-        
-        
-        this.arrayOfPOS.forEach(element => {
-            yArray.push(element[1]);
-        });
-        
-        const maxWidth = Math.max(...xArray);
-        const maxHeight = Math.max(...yArray);
-        const minWidth = Math.min(...xArray);
-        const minHeigth = Math.min(...yArray);
-
-            for (let y = minHeigth - 1; y < maxHeight; y++) {
-                for (let x = minWidth; x <= maxWidth+1; x++) {
-                    const includes = (x, y) =>{
-                        for (const element of this.arrayOfPOS) {
-                            if (x === element[0] && y === element[1]){
-                                return true;
-                            }else{ 
-                                continue;
-                            }
-                        }
-                    }
-                    if (includes(x, y) === true) {
-                        position += "x"
-                    }else{
-                        position += "."
-                    }
-                }
-                position += "\n"
-            }
-
-        console.log("-- START LOG");
-        console.log(position);
-        console.log("-- END LOG");
     }
 }
-
-
-t2 = new Turtle(0,2)
-t2.forward(5).right().forward(2).left().forward(5).left().forward(2);
-t2.print()
-
-
-    t2.forward(3)
-    .left()
-    .forward(3)
-    .right()
-    .forward(5)
-    .right()
-    .forward(8)
-    .right()
-    .forward(5)
-    .right()
-    .forward(3)
-    .left()
-    .forward(3)
-    .print();
-
-    console.log(t2.allPoints());
+console.log(newTurtle.allPoints());
+newTurtle.print()
