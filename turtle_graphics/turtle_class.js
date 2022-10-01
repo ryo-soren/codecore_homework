@@ -148,6 +148,7 @@ class Turtle{
         console.log("-- START LOG");
         console.log(position);
         console.log("-- END LOG");
+        return position;
     }
 }
 
