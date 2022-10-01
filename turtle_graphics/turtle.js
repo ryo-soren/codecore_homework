@@ -5,7 +5,7 @@ class Turtle{
         this.y = y
         this.arrayOfPOS = [[x, y]]
         this.direction = "right"
-        this.position = ""
+
     }
 
     forward(increase) {
@@ -112,10 +112,12 @@ class Turtle{
 
         let xArray = [];
         let yArray = [];
-        
+        let position = ""
+
         this.arrayOfPOS.forEach(element => {
             xArray.push(element[0]);
         });
+        
         
         this.arrayOfPOS.forEach(element => {
             yArray.push(element[1]);
@@ -123,17 +125,54 @@ class Turtle{
         
         const maxWidth = Math.max(...xArray);
         const maxHeight = Math.max(...yArray);
+        const minWidth = Math.min(...xArray);
+        const minHeigth = Math.min(...yArray);
 
+            for (let y = minHeigth - 1; y < maxHeight; y++) {
+                for (let x = minWidth; x <= maxWidth+1; x++) {
+                    const includes = (x, y) =>{
+                        for (const element of this.arrayOfPOS) {
+                            if (x === element[0] && y === element[1]){
+                                return true;
+                            }else{ 
+                                continue;
+                            }
+                        }
+                    }
+                    if (includes(x, y) === true) {
+                        position += "x"
+                    }else{
+                        position += "."
+                    }
+                }
+                position += "\n"
+            }
 
+        console.log("-- START LOG");
+        console.log(position);
+        console.log("-- END LOG");
     }
 }
 
-// t1 = new Turtle(3,0).forward(10)
-// console.log(t1)
 
 t2 = new Turtle(0,2)
-console.log(t2.forward(5))
-console.log(t2.right().forward(2).left().forward(5).left().forward(2).print()); 
+t2.forward(5).right().forward(2).left().forward(5).left().forward(2);
+t2.print()
 
 
-// console.log(t2.forward(2).allPoints())
+    t2.forward(3)
+    .left()
+    .forward(3)
+    .right()
+    .forward(5)
+    .right()
+    .forward(8)
+    .right()
+    .forward(5)
+    .right()
+    .forward(3)
+    .left()
+    .forward(3)
+    .print();
+
+    console.log(t2.allPoints());
