@@ -48,5 +48,6 @@ if (firstElement[0] === "t") {
         }
     }
 }
-console.log(newTurtle.allPoints());
+
 newTurtle.print()
+
