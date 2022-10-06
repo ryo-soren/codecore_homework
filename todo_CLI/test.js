@@ -1,17 +1,15 @@
 const readline = require("readline")
 const rl = readline.createInterface({
+
     input: process.stdin,
-    // "process.stdin" is an object that represents input 
-    // from the terminal
-    
     output: process.stdout
-    // "process.stdout" is an object that represents output 
-    // from the terminal 
-})
+
+});
+
 const todoList = {
 
     count : 0,
-    taskList :[],
+    taskList : [],
 
     view(){
         console.log(this.taskList.join("\n"))
@@ -20,8 +18,8 @@ const todoList = {
     },
 
     newTask(){
-        rl.question("Task:\n", (task) => {
-            console.log(task);
+        rl.question("Task:\n>", (task) => {
+            console.log(`Task added to list: ${task}`);
             this.taskList.push([this.count+" "+"[]"+" "+task])
             this.count++
             this.main()
@@ -29,9 +27,15 @@ const todoList = {
     },
 
     complete(digit){
-        console.log(`I am here ${digit}`);
-        const taskToComplete = this.taskList[digit-1]
-        console.log(taskToComplete);
+        const taskToComplete = this.taskList[digit-1].toString().split(" "); // takes specific list element and returns an array 
+        taskToComplete.splice(1, 1, "[x]") // replaces [] with [x]
+        this.taskList.splice((digit - 1), 1, taskToComplete.join(" ")) // replaces list element with the one that has x
+        this.main();
+    },
+
+    delete(digit){
+        const deleted = this.taskList.splice((digit - 1), 1);
+        console.log(`Completed "${deleted}"`);
         this.main()
     },
 
@@ -40,9 +44,7 @@ const todoList = {
     },
 
     main() {
- 
-        rl.question("(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit\n", (input) => {
-            // console.log(input + 'from main');
+        rl.question("(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit\n>", (input) => {
             switch (input[0]) {
                 case "v":
                     this.view();
@@ -51,18 +53,17 @@ const todoList = {
                     this.newTask();
                     break;
                 case "c":
-                    this.complete(input[1])
+                    this.complete(input[1]);
                     break;
                 case "d":
-                    
-                    break;
-                            
+                    this.delete(input[1]);
+                    break;          
                 case "q":
-                    this.quit()
-                    
+                    this.quit();
+                    break;
             }
         })
     }
 }
 
-todoList.main()
+todoList.main();
