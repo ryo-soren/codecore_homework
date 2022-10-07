@@ -28,14 +28,16 @@ const todoList = {
 
     complete(digit){
         const taskToComplete = this.taskList[digit-1].toString().split(" "); // takes specific list element and returns an array 
-        taskToComplete.splice(1, 1, "[x]") // replaces [] with [x]
+        taskToComplete.splice(1, 1, "[\u2713]") // replaces [] with [x]
         this.taskList.splice((digit - 1), 1, taskToComplete.join(" ")) // replaces list element with the one that has x
         this.main();
     },
 
     delete(digit){
-        const deleted = this.taskList.splice((digit - 1), 1);
-        console.log(`Completed "${deleted}"`);
+        const deleted = this.taskList[digit-1]
+        const arrOfDeleted = deleted.toString().split(" ")
+        console.log(`Completed "${arrOfDeleted[2]}"`);
+        this.taskList.splice((digit - 1), 1)
         this.main()
     },
 
