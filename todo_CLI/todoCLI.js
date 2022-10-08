@@ -51,7 +51,7 @@ const todoList = {
 
     main() {
         rl.question("(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit\n>", (input) => {
-            switch (input[0]) {
+            switch (input.trim()[0]) {
                 case "v":
                     this.view();
                     break;
@@ -59,13 +59,17 @@ const todoList = {
                     this.newTask();
                     break;
                 case "c":
-                    this.complete(input[1]);
+                    this.complete(input.trim()[1]);
                     break;
                 case "d":
-                    this.delete(input[1]);
+                    this.delete(input.trim()[1]);
                     break;          
                 case "q":
                     this.quit();
+                    break;
+                default:
+                    console.log("Please enter a correct option!");
+                    this.main();
                     break;
             }
         })
