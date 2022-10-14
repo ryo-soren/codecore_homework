@@ -4,13 +4,20 @@ const router = express.Router()
 
 
 router.get("/", (req,res) => {
-    res.render("super_team/home")
+    knex("super_teams")
+    .orderBy('id')
+    .then(cohorts => {
+    res.render("super_team/index", {cohorts: cohorts})
+    })
 })
 router.get("/new", (req,res) => {
     res.render("super_team/new")
 })
-router.get("/cohorts", (req,res) => {
-    res.render("super_team/cohorts")
+router.get("/index", (req,res) => {
+    res.render("super_team/index")
+})
+router.get("/:id", (req,res) => {
+    res.render("super_team/view")
 })
 
 

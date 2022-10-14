@@ -1,0 +1,10 @@
+<%-include("../partials/navbar") %>
+
+<form action="/super_team/<%-note.id%>" method="POST">
+    <input type="hidden" name="_method" value="PATCH" >
+    <%- include("../partials/form.ejs")  %> 
+    <input type="submit" value="PATCH">
+</form>
+
+</body>
+</html>

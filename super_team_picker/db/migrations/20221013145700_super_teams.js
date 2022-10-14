@@ -7,7 +7,8 @@
       table.increments('id'); 
       table.text('team_name');
       table.text('members'); 
-      table.integer('team_members'); 
+      table.integer('team_members');
+      table.string('image_url'); 
       table.timestamp('created_at').defaultTo(knex.fn.now()); 
     })
   };
@@ -17,5 +18,5 @@
    * @returns { Promise<void> }
    */
   exports.down = function(knex) {
-    return knex.schema.dropTable('posts')
+    return knex.schema.dropTable('super_teams')
   };

@@ -1,25 +1,27 @@
-<%-include("../partials/navbar") %> 
-<div class="card m-3">
+<%-include("../partials/navbar") %>
+<% for( let cohort of cohorts) { %>
+  <div class="card m-3">
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
+      <h4 class="card-title"><%-cohort.team_name%></h4>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+<% } %> 
+<!-- <div class="card m-3">
+    <div class="card-body">
+      <h4 class="card-title">Card title</h4>
       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
   </div>
 <div class="card m-3">
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
+      <h4 class="card-title">Card title</h4>
       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
-  </div>
-<div class="card m-3">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
+  </div> -->
 
 </body>
 </html>
