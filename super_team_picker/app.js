@@ -8,7 +8,6 @@ const methodOverride = require("method-override")
 app.use(logger('dev'))
 app.use(express.urlencoded({extended: true}))
 app.use(express.static(path.join(__dirname, 'public')));
-app.use("/super_team_picker", superTeamRouter)
 
 app.use(
     methodOverride((req, res) => {
@@ -18,6 +17,7 @@ app.use(
         }
     })
 );
+app.use("/super_team_picker", superTeamRouter)
 
 app.set('view engine', 'ejs')
 app.set('views', 'views')

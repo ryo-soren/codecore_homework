@@ -8,7 +8,7 @@ exports.seed = function(knex) {
   return knex("super_teams")
     .del()
     .then(() => {
-      const cohorts = Array.from({length: 10}).map(() => {
+      const cohorts = Array.from({length: 20}).map(() => {
 
         function members() {
           const randNum = Math.ceil(Math.random()*20)+1
@@ -22,7 +22,7 @@ exports.seed = function(knex) {
         return {
           team_name: faker.company.catchPhrase(),
           team_members: players.length,
-          members: players.join(","),
+          members: players.join(", "),
           image_url: faker.image.imageUrl(),
         }
       });
