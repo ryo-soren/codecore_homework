@@ -21,9 +21,9 @@ exports.seed = function(knex) {
         const players = members()
         return {
           team_name: faker.company.catchPhrase(),
-          team_members: players.length,
-          members: players.join(", "),
           image_url: faker.image.imageUrl(),
+          team_members: players.length,
+          members: players.join(", ")
         }
       });
       return knex("super_teams").insert(cohorts)

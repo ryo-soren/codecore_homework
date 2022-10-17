@@ -4,10 +4,14 @@ const router = express.Router()
 
 
 router.get("/new", (req,res) => {
-    res.render("super_team/new")
+    res.render("super_team/new", {cohort: false})
 })
 
 router.get("/", (req,res) => {
+    res.render("super_team/home", {cohort: false})
+})
+
+router.get("/index", (req,res) => {
     knex("super_teams")
     .orderBy('id', "desc")
     .then(cohorts => {
@@ -21,9 +25,22 @@ router.get("/:id", (req,res) => {
     .first()
     .then(cohort => {
         if (!cohort) {
-            res.send("super_team/view", {cohort: false})
+            res.render("super_team/view", {cohort: cohort, memberSplit: false})
         } else {
-            res.render("super_team/view", {cohort: cohort})
+            res.render("super_team/view", {cohort: cohort, memberSplit: false})
+        }
+    })
+})
+
+router.get("/:id/edit", (req,res) => {
+    knex("super_teams")
+    .where("id", req.params.id)
+    .first()
+    .then(cohort => {
+        if (!cohort) {
+            res.send("super_team/edit", {cohort: false})
+        } else {
+            res.render("super_team/edit", {cohort: cohort})
         }
     })
 })
@@ -37,35 +54,59 @@ router.get("/:id/split_teams", (req,res) => {
         const method = req.query.teamMethod
         let quantity = parseFloat(req.query.quantity)
         const members = cohort.members.split(", ")
-        let team_members = parseFloat(cohort.team_members)
         let memberSplit = []
-        console.log(quantity);
-        console.log(team_members+quantity);
+
         if (!cohort) {
             res.send("super_team/view", {cohort: false})
         } else {
-            if (method === "team_count") {
+            if (method === "number_per_team") {
                 for (let i = 0; i < members.length; i += quantity) {
-                    const sliced = members.slice(i, i+ quantity).join(", ")
+                    const sliced = members.slice(i, i+ quantity)
                     memberSplit.push(sliced)
                 }
-                console.log(memberSplit);
-                res.render("super_team/view", {cohort: cohort, memberSplit : memberSplit})
+                if (memberSplit[memberSplit.length-1].length === 1) { //checks to see if last element is alone
+
+                    memberSplit[memberSplit.length-2].push(memberSplit[memberSplit.length-1].join(""))
+                    memberSplit.pop() // removes the last element after appending the single element to second last array
+
+                    console.log(memberSplit);
+                    res.render("super_team/view", {cohort: cohort, memberSplit : memberSplit})
+                } else {
+                    console.log(memberSplit);
+                    res.render("super_team/view", {cohort: cohort, memberSplit : memberSplit})
+                }
+
             } else {
-                console.log(members.length);
-                console.log(Math.ceil(team_members/quantity))
-                for (let i = 0; i < members.length; i += team_members) {
-                    const sliced = members.slice(i, i+(team_members/quantity)).join(", ")
-                    console.log(sliced);
+                for (let i = 0; i < members.length; i += (Math.round(members.length/quantity))) {
+                    const sliced = members.slice(i, i+(Math.round(members.length/quantity)))
                     memberSplit.push(sliced)
                 }
-                console.log(memberSplit);
-                res.render("super_team/view", {cohort: cohort, memberSplit : memberSplit})
-            }
+                if (memberSplit[memberSplit.length-1].length === 1) {
+
+                    memberSplit[memberSplit.length-2].push(memberSplit[memberSplit.length-1].join(""))
+                    memberSplit.pop()
+
+                    console.log(memberSplit);
+                    res.render("super_team/view", {cohort: cohort, memberSplit : memberSplit})
+                } else {
+                    console.log(memberSplit);
+                    res.render("super_team/view", {cohort: cohort, memberSplit : memberSplit})
+                }
+        }
 
         }
     })
 })
+
+// if (memberSplit[memberSplit.length-1].length === 1) {
+//     memberSplit[memberSplit.length-2].push(memberSplit[memberSplit.length-1]).pop()
+    
+//     console.log(memberSplit);
+//     res.render("super_team/view", {cohort: cohort, memberSplit : memberSplit})
+// } else {
+//     console.log(memberSplit);
+//     res.render("super_team/view", {cohort: cohort, memberSplit : memberSplit})
+// }
 
 
 router.post("/", (req,res) =>{
@@ -82,20 +123,26 @@ router.post("/", (req,res) =>{
     })
 })
 
-// router.post("/:id/split_teams", (req,res) =>{
+router.patch("/:id", (req,res) => {
+    knex("super_teams")
+    .where("id", req.params.id)
+    .update({
+        team_name: req.body.team_name,
+        members: req.body.members,
+        image_url: req.body.image_url
+    })
+    .then(() => {
+        res.redirect(`/super_team_picker/${req.params.id}`)
+    })
+})
 
-
-//     knex("super_teams")
-//     .returning("*")
-//     .then(cohorts => {
-//         console.log("I am here");
-//         const cohort = cohorts[0]
-//         res.redirect(`super_team_picker/${cohort.id}`)
-//     })
-// })
-
-
-
-
+router.delete("/:id", (req,res) => {
+    knex("super_teams")
+    .where("id", req.params.id)
+    .delete()
+    .then(() => {
+        res.redirect("/super_team_picker")
+    })
+})
 
 module.exports = router

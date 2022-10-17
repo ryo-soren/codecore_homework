@@ -1,32 +1,5 @@
 <%-include("../partials/navbar") %> 
-<div class="card m-3">
-    <div class="card-body">
-      <h4 class="card-title"><%-cohort.team_name%> </h4>
-      <p class="card-text"><%-cohort.members%> </p>
-    </div>
-    <hr class="mx-3">
-    <div class="card-body">
-        <form action="/super_team_picker/<%-cohort.id%>/split_teams" method="get">
-            <h6 class="card-title mb-4">Method</h6>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" value="team_count" name="teamMethod" id="teamMethod1">
-                <label class="form-check-label" for="teamMethod1">
-                Team Count
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" value="number_per_team" name="teamMethod" id="teamMethod2">
-                <label class="form-check-label" for="teamMethod2">
-                Number Per Team
-                </label>
-            </div>
-            <div>
-                <h6 class="card-title my-3">Quantity</h6>
-                <input type="text" class="form-control w-100 mb-2" name="quantity" id="quantity">
-                <button type="submit" class="btn btn-outline-primary w-100 my-">Assign Teams</button>
-            </div>
-        </form>
-    </div>
-  </div>
-</body>
-</html>
+<%-include("../partials/card_view") %> 
+<hr class="mx-3">
+<%-include("../partials/method_form") %> 
+<%-include("../partials/footer") %>

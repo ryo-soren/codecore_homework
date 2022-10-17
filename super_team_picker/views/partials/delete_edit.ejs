@@ -1,0 +1,11 @@
+    <div class="d-flex">
+        <div class="m-3">
+            <a href="/super_team_picker/<%-cohort.id%>/edit" class="btn btn-outline-warning">Edit</a>
+        </div>
+        <div class="m-3">
+            <form action="/super_team_picker/<%-cohort.id%>" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-outline-danger">Delete</button>
+            </form>
+        </div>
+    </div>
