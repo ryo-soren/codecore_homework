@@ -8,10 +8,10 @@ exports.seed = function(knex) {
   return knex("super_teams")
     .del()
     .then(() => {
-      const cohorts = Array.from({length: 20}).map(() => {
+      const cohorts = Array.from({length: 10}).map(() => {
 
         function members() {
-          const randNum = Math.ceil(Math.random()*20)+1
+          const randNum = Math.ceil(Math.random()*35)+1
           const arr = []
           for (let index = 0; index < randNum; index++) {
             arr.push(faker.name.firstName())
@@ -23,7 +23,8 @@ exports.seed = function(knex) {
           team_name: faker.company.catchPhrase(),
           image_url: faker.image.imageUrl(),
           team_members: players.length,
-          members: players.join(", ")
+          members: players.join(", "),
+          created_by: faker.name.firstName()
         }
       });
       return knex("super_teams").insert(cohorts)

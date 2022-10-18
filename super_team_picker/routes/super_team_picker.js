@@ -98,17 +98,6 @@ router.get("/:id/split_teams", (req,res) => {
     })
 })
 
-// if (memberSplit[memberSplit.length-1].length === 1) {
-//     memberSplit[memberSplit.length-2].push(memberSplit[memberSplit.length-1]).pop()
-    
-//     console.log(memberSplit);
-//     res.render("super_team/view", {cohort: cohort, memberSplit : memberSplit})
-// } else {
-//     console.log(memberSplit);
-//     res.render("super_team/view", {cohort: cohort, memberSplit : memberSplit})
-// }
-
-
 router.post("/", (req,res) =>{
     knex("super_teams")
     .insert({

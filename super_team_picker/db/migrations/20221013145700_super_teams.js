@@ -9,6 +9,7 @@
       table.text('members'); 
       table.integer('team_members');
       table.string('image_url'); 
+      table.text('created_by'); 
       table.timestamp('created_at').defaultTo(knex.fn.now()); 
     })
   };
