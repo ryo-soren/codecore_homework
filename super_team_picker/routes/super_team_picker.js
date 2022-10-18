@@ -8,7 +8,7 @@ router.get("/new", (req,res) => {
 })
 
 router.get("/", (req,res) => {
-    res.render("super_team/home", {cohort: false})
+    res.render("super_team/home")
 })
 
 router.get("/index", (req,res) => {
@@ -130,7 +130,7 @@ router.delete("/:id", (req,res) => {
     .where("id", req.params.id)
     .delete()
     .then(() => {
-        res.redirect("/super_team_picker")
+        res.redirect("/super_team_picker/index")
     })
 })
 

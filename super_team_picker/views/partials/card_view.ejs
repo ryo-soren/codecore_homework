@@ -3,7 +3,7 @@
         <div class="card-body">
         <h4 class="card-title"><%-cohort.team_name%> </h4>
         <p class="card-text"><%-cohort.members%> </p>
-        <h6 class="card-title">Count: <%-cohort.members.split(", ").length%></h6>
+        <p class="card-title">Count: <%-cohort.members.split(", ").length%></p>
+        <%-include("../partials/delete_edit") %>
     </div>
-    <%-include("../partials/delete_edit") %>
 </div>

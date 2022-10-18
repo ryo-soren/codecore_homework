@@ -36,7 +36,7 @@ app.set('view engine', 'ejs')
 app.set('views', 'views')
 
 app.post('/sign_in', (req, res) => {
-    const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 //a day in milliseconds
+    const COOKIE_MAX_AGE = 1000 * 60 * 60
     const username = req.body.username
     res.cookie('username', username, {maxAge: COOKIE_MAX_AGE})
     res.redirect("/super_team_picker")

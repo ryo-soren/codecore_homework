@@ -21,7 +21,7 @@ exports.seed = function(knex) {
         const players = members()
         return {
           team_name: faker.company.catchPhrase(),
-          image_url: faker.image.imageUrl(),
+          image_url: faker.image.abstract(640, 480, true),
           team_members: players.length,
           members: players.join(", "),
           created_by: faker.name.firstName()
