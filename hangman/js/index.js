@@ -46,7 +46,7 @@ $(document).ready(function(){
             const target = event.target.id
             if (word.includes(target)) {
 
-                $(`.guess#${target}`).text(`${target}`) 
+                $(`.guess#${target}`).text(`${target.toUpperCase()}`) 
 
                 word.forEach(letter => {
                     if (letter === target) {
