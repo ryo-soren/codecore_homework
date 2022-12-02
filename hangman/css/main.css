@@ -1,0 +1,10 @@
+.title{
+   text-align: center;
+}
+
+.guess{
+    border-bottom: .001em solid black;
+    margin: auto;
+    width: 4em;
+    text-align: center;
+}
